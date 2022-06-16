@@ -6,13 +6,21 @@ function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleNameChange = event => {
-    console.log(event.currentTarget.value);
-    setName(event.currentTarget.value);
-  };
+  const handleChange = event => {
+    const { name, value } = event.currentTarget;
 
-  const handleNumberChange = event => {
-    setNumber(event.currentTarget.value);
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        console.warn(`${name} is not processed`);
+    }
   };
 
   const handleSubmit = event => {
@@ -35,7 +43,7 @@ function ContactForm({ onSubmit }) {
         <input
           className={s.input}
           value={name}
-          onChange={handleNameChange}
+          onChange={handleChange}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -47,7 +55,7 @@ function ContactForm({ onSubmit }) {
         <input
           className={s.input}
           value={number}
-          onChange={handleNumberChange}
+          onChange={handleChange}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
